@@ -1,83 +1,62 @@
-# Casino Bot (NozCoins dédicace à Nozura)
+<div align="center">
 
-Bot Discord casino en JavaScript (Node.js + discord.js + SQLite) avec système économie, jeux, setup interactif, boutique/tirages, logs et outils d'administration.
+# 🎰 Casino Bot
 
-## Crédits
-Ce bot est **développé par walker #🇵🇸**.
+**Un bot Discord casino complet construit avec Node.js, discord.js et SQLite.**
 
-## Sommaire
-- [Aperçu](#aperçu)
-- [État Du Projet](#état-du-projet)
-- [Fonctionnalités](#fonctionnalités)
-- [Prérequis](#prérequis)
-- [Installation Rapide](#installation-rapide)
-- [Configuration](#configuration)
-- [Lancement](#lancement)
-- [Commandes](#commandes)
-- [Architecture](#architecture)
-- [Permissions Discord Recommandées](#permissions-discord-recommandées)
-- [Sécurité Et Garde-Fous](#sécurité-et-garde-fous)
-- [Dépannage](#dépannage)
-- [Roadmap V2](#roadmap-v2)
+[![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?logo=discord&logoColor=white)](https://discord.js.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![License](https://img.shields.io/badge/license-not%20specified-lightgrey)](#licence)
+[![GitHub stars](https://img.shields.io/github/stars/klf249/casino-bot?style=social)](https://github.com/klf249/casino-bot/stargazers)
 
-## Aperçu
-Le bot propose une économie de serveur centrée sur `NozCoins` avec:
-- commandes économie (`bal`, `profil`, `daily`, `collect`, `don`),
-- jeux casino (roulette, blackjack, slots, coinflip, etc.),
-- panel setup interactif (profil, tirage, shop, inventaire, succès),
-- commandes de modération et d'audit,
-- outils owner/buyer (gestion avancée, panel `.panale`, reset, logs).
+Économie • Jeux • Boutique • Inventaire • Succès • Administration • Logs
 
-## État Du Projet
-Ce projet est une **V1 développée rapidement**.
+</div>
 
-Points importants:
-- Le bot a été **développé à l'arrache** sur plusieurs parties techniques.
-- Certains systèmes prévus ne sont **pas finalisés**.
-- Le **système de clans** n'est pas disponible en version complète.
-- Le **système de pillages avancés** n'est pas disponible en version complète.
-  - Note: une commande de vol existe (`+vol`), mais le module pillage complet prévu initialement n'est pas livré en V1.
+## ✨ Aperçu
 
-Détails supplémentaires dans [PROJECT_STATUS.md](/home/dontbepooron/Casino/PROJECT_STATUS.md).
+Casino Bot propose une économie de serveur centrée sur les **NozCoins**, avec des jeux de casino, un système de progression, une boutique, des tirages, des outils de modération et un panneau de configuration interactif.
 
-## Fonctionnalités
-- Économie persistante par serveur (SQLite): coins, XP, profils, transactions.
-- Jeux avec cooldowns, mises minimales, blocage par panel admin.
-- Setup casino interactif (GIF, shop, tirages pondérés, inventaire, succès).
-- Système rôles intégré (résolution automatique + sync setup).
-- Giveaway intégré avec gestion d'entrées et reroll.
-- Logs d'audit: commandes, sécurité, gains, tirages, transactions.
-- Permissions hiérarchisées: buyer, owner, groupes, blacklist.
+Le projet est développé et maintenu par **Walker** (`@klf249`).
 
-## Prérequis
+## 🚀 Fonctionnalités
+
+- Économie persistante par serveur avec SQLite : monnaie, XP, profils et transactions.
+- Jeux de casino : roulette, blackjack, slots, coinflip, hilo, craps, jackpot, bingo et pierre-feuille-ciseaux.
+- Boutique, inventaire, récompenses, tirages pondérés et succès.
+- Panneau de configuration interactif pour administrer le bot.
+- Giveaway intégré avec inscriptions et reroll.
+- Gestion des rôles et synchronisation avec la configuration du serveur.
+- Modération, blacklist temporaire ou permanente et permissions hiérarchisées.
+- Journaux d’audit pour les commandes, gains, transactions et événements de sécurité.
+- Historique des transactions et outils de rollback.
+
+## 📋 Prérequis
+
 - Node.js `>= 20.11.0`
 - npm
-- Linux recommandé (ou environnement compatible)
-- `ImageMagick` requis pour le rendu d'image profil (`convert`)
+- Un bot Discord configuré dans le Developer Portal
+- ImageMagick pour le rendu des cartes de profil
 
-Exemple d'installation ImageMagick (Debian/Ubuntu):
+Sous Debian ou Ubuntu :
 
 ```bash
 sudo apt update
 sudo apt install -y imagemagick
 ```
 
-## Installation Rapide
-1. Cloner le projet.
-2. Installer les dépendances.
-3. Configurer `.env` et `config.json`.
-4. Lancer le bot.
+## ⚡ Installation rapide
 
 ```bash
+git clone https://github.com/klf249/casino-bot.git
+cd casino-bot
 npm install
 cp .env.example .env
 npm start
 ```
 
-## Configuration
-
-### 1) `.env`
-Variables minimales:
+Renseigne ensuite les variables nécessaires dans `.env` :
 
 ```env
 DISCORD_TOKEN=your_bot_token_here
@@ -85,91 +64,86 @@ CLIENT_ID=your_client_id_here
 GUILD_ID=
 ```
 
-### 2) `config.json`
-Clés importantes:
-- `prefix`: préfixe principal (`+`),
-- `buyerId`: ID Discord buyer,
-- `currency.name`, `currency.coinEmoji`, `currency.xpFlaskEmoji`,
-- `cooldowns.*`: cooldowns commandes,
-- `limits.minGameBet`: mise minimale globale des jeux,
-- `limits.maxDonation`, `limits.maxVolCoins`, `limits.maxVolXp`,
-- `embedColor.*`: palette embeds.
+## ⚙️ Configuration
 
-## Lancement
-- Production:
+Les principaux réglages sont disponibles dans `config.json` :
+
+- `prefix` : préfixe principal des commandes.
+- `buyerId` : identifiant du compte disposant des permissions avancées.
+- `currency.*` : nom et apparence de la monnaie et de l’XP.
+- `cooldowns.*` : délais entre les commandes.
+- `limits.*` : limites de mises, dons et transferts.
+- `embedColor.*` : palette utilisée dans les embeds.
+
+## ▶️ Lancement
 
 ```bash
+# Production
 npm start
-```
 
-- Dev (watch):
-
-```bash
+# Développement avec surveillance
 npm run dev
-```
 
-- Vérification syntaxe:
-
-```bash
+# Vérification de la syntaxe
 npm run check
 ```
 
-## Commandes
-Le listing complet est disponible via `+help` (panel interactif).
+## 🎮 Commandes principales
 
-Exemples rapides:
-- Économie: `+bal`, `+profil`, `+daily`, `+collect`, `+don`.
-- Jeux: `+roulette`, `+blackjack`, `+slots`, `+coinflip`, `+hilo`, `+craps`, `+jackpot`, `+bingo`, `+pfc`.
-- Setup: `+setup`, `+shopadd`, `+drawadd`, `+setreward`, `+setupseed`.
-- Modération: `+warn`, `+sanctions`, `+bl`, `+tempbl`.
-- Admin/Owner: `+setcommandpanel`, `+setprofil`, `+autologs`, `+rollbacktx`.
-- Buyer: `+panale`, `+give`, `+owner`, `+reset`, `+setmodetest`, `+setmodeprod`.
+Le listing complet est accessible depuis le panneau d’aide du bot.
 
-## Architecture
-Structure principale:
-- `src/index.js`: bootstrap client + DB + handlers.
-- `src/db/database.js`: schéma SQL + data store.
-- `src/handlers/`: chargement dynamique commandes/events.
-- `src/events/`: événements Discord (ready, messages, interactions).
-- `src/commands/`: commandes par domaine.
-- `src/utils/`: helpers métier (setup, profils, logs, accès, branding).
-- `data/`: base SQLite et données runtime.
-- `image/`: assets (fonds, GIF setup, etc.).
+| Catégorie | Exemples |
+|---|---|
+| Économie | `+bal`, `+profil`, `+daily`, `+collect`, `+don` |
+| Casino | `+roulette`, `+blackjack`, `+slots`, `+coinflip`, `+hilo` |
+| Configuration | `+setup`, `+shopadd`, `+drawadd`, `+setreward` |
+| Modération | `+warn`, `+sanctions`, `+bl`, `+tempbl` |
+| Administration | `+setcommandpanel`, `+setprofil`, `+autologs`, `+rollbacktx` |
 
-## Permissions Discord Recommandées
-- `ViewChannel`
-- `SendMessages`
-- `EmbedLinks`
-- `AttachFiles`
-- `ReadMessageHistory`
-- `AddReactions`
-- `ManageRoles` (fortement recommandé pour setup/shop/tirages rôles)
-- `ManageChannels` (si auto-création logs)
+## 🏗️ Architecture
 
-## Sécurité Et Garde-Fous
-- Vérification profil obligatoire sur les commandes concernées.
-- Contrôle d'accès buyer/owner/groupes.
-- Blacklist permanente/temporaire.
-- Cooldowns commandes.
-- Logs audit + historique transactions + outils de rollback.
-- Blocage ciblé des commandes de jeux via panel.
+```text
+src/
+├── commands/     # Commandes organisées par domaine
+├── db/           # Schéma SQLite et accès aux données
+├── events/       # Événements Discord
+├── handlers/     # Chargement dynamique des modules
+├── utils/        # Outils métier et helpers
+└── index.js      # Initialisation du client
 
-## Dépannage
-- `DISCORD_TOKEN manquant`:
-  - Vérifier `.env` et relancer.
-- Les cartes profil ne s'affichent pas:
-  - Vérifier `ImageMagick` (`convert`) installé.
-- Rôles non attribués:
-  - Vérifier hiérarchie des rôles + permission `ManageRoles`.
-- Setup GIF non envoyé:
-  - Vérifier la présence des fichiers dans `image/` et la limite d'upload du serveur.
+data/             # Données d’exécution et base locale
+image/            # Ressources visuelles
+```
 
-## Roadmap V2
-V2 potentielle (non datée):
-- vrai système de clans,
-- vrai système pillage complet,
-- refonte de certains modules V1,
-- meilleur découpage interne et tests plus robustes.
+## 🔐 Sécurité
+
+- Contrôles d’accès selon les rôles et niveaux de permission.
+- Blacklist temporaire ou permanente.
+- Cooldowns sur les commandes sensibles.
+- Journalisation des opérations importantes.
+- Historique des transactions et restauration ciblée.
+- Vérification des permissions Discord avant les opérations administratives.
+
+> Ne publie jamais ton token Discord, tes secrets ou ton fichier `.env` dans le dépôt.
+
+## 🗺️ Roadmap
+
+- [ ] Approfondir le système de clans.
+- [ ] Développer un système de pillage complet.
+- [ ] Renforcer la couverture de tests.
+- [ ] Améliorer le découpage interne des modules.
+- [ ] Ajouter davantage de documentation visuelle.
+
+## 🤝 Contribution
+
+Les issues et Pull Requests constructives sont les bienvenues. Pour une modification importante, ouvre d’abord une issue afin de présenter ton idée.
+
+## 📄 Licence
+
+Aucune licence n’est actuellement déclarée. Par défaut, tous les droits restent réservés au propriétaire du dépôt jusqu’à l’ajout d’un fichier `LICENSE`.
 
 ---
-Projet maintenu en V1 avec logique pragmatique. Une V2 pourra sortir plus tard selon le temps disponible.
+
+<div align="center">
+Développé avec ☕ et JavaScript par <a href="https://github.com/klf249">Walker</a>.
+</div>
